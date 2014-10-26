@@ -9,6 +9,8 @@ import javax.swing.*;
  * Conway's game of life is a cellular automaton devised by the
  * mathematician John Conway.
  */
+
+//Start class
 public class ConwaysGameOfLife extends JFrame implements ActionListener {
     private static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension MINIMUM_WINDOW_SIZE = new Dimension(400, 400);
