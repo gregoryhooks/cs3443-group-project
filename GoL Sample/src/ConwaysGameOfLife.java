@@ -80,6 +80,7 @@ public class ConwaysGameOfLife extends JFrame implements ActionListener {
         add(gb_gameBoard);
     }
  
+    //Controller
     public void setGameBeingPlayed(boolean isBeingPlayed) {
         if (isBeingPlayed) {
             mi_game_play.setEnabled(false);
@@ -94,6 +95,7 @@ public class ConwaysGameOfLife extends JFrame implements ActionListener {
     }
  
     @Override
+    //Controller
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(mi_file_exit)) {
             // Exit the game
@@ -241,6 +243,7 @@ public class ConwaysGameOfLife extends JFrame implements ActionListener {
             }
         }
  
+        //This whole section is part of controller
         @Override
         public void componentResized(ComponentEvent e) {
             // Setup the game board size with proper boundries
@@ -275,7 +278,8 @@ public class ConwaysGameOfLife extends JFrame implements ActionListener {
         }
         @Override
         public void mouseMoved(MouseEvent e) {}
- 
+        //Controller up to here
+        
         @Override
         public void run() {
             boolean[][] gameBoard = new boolean[d_gameBoardSize.width+2][d_gameBoardSize.height+2];
