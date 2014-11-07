@@ -1,5 +1,9 @@
 package gol.main;
 
+import gol.main.controller.ConwaysGameOfLifeController;
+import gol.main.view.ConwaysGameOfLifeOptionMenus;
+import gol.main.view.ConwaysGameOfLifeView;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -12,14 +16,23 @@ public class ConwaysGameOfLiveMain {
 	
 	public static void main(String[] args) {
         // Setup the swing specifics
-        JFrame game = new ConwaysGameOfLife();
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setTitle("Conway's Game of Life");
+        //JFrame game = new ConwaysGameOfLife();
+		
+		ConwaysGameOfLifeView view = new ConwaysGameOfLifeView();
+        
+		ConwaysGameOfLifeOptionMenus menus = new ConwaysGameOfLifeOptionMenus(view);
+        
+        ConwaysGameOfLifeController controller = new ConwaysGameOfLifeController(view.gb_gameBoard, view, menus);
+        
+        view.register(controller);
+		
+        view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        view.setTitle("Conway's Game of Life");
         //game.setIconImage(new ImageIcon(ConwaysGameOfLife.class.getResource("/images/logo.png")).getImage());
-        game.setSize(DEFAULT_WINDOW_SIZE);
-        game.setMinimumSize(MINIMUM_WINDOW_SIZE);
-        game.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - game.getWidth())/2, 
-                (Toolkit.getDefaultToolkit().getScreenSize().height - game.getHeight())/2);
-        game.setVisible(true);
+        view.setSize(DEFAULT_WINDOW_SIZE);
+        view.setMinimumSize(MINIMUM_WINDOW_SIZE);
+        view.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - view.gb_gameBoard.getWidth())/2, 
+                (Toolkit.getDefaultToolkit().getScreenSize().height - view.gb_gameBoard.getHeight())/2);
+        view.setVisible(true);
     }
 }
