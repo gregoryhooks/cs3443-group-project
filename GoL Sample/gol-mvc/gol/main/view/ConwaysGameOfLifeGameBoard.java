@@ -12,18 +12,18 @@ import javax.swing.JPanel;
 
 public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
 	
-	private static final int BLOCK_SIZE = 10;
+	private static final int BLOCK_SIZE = 10; //View
 	
-    public int i_movesPerSecond = 3;
+    public int i_movesPerSecond = 3; //model
 
-    public Thread game;
+    public Thread game; //model
 	
-    public Dimension d_gameBoardSize = null;
-    private ArrayList<Point> point = new ArrayList<Point>(0);
+    public Dimension d_gameBoardSize = null; //model - but may need to duplicate for View(or add getter)
+    private ArrayList<Point> point = new ArrayList<Point>(0); //model
 
     //public ConwaysGameOfLifeGameBoard(ConwaysGameOfLifeView view) {}
 
-    public void updateArraySize() {
+    public void updateArraySize() { // funtion would be in model - add connected function to view for repaint()
         ArrayList<Point> removeList = new ArrayList<Point>(0);
         for (Point current : point) {
             if ((current.x > d_gameBoardSize.width-1) || (current.y > d_gameBoardSize.height-1)) {
@@ -34,14 +34,14 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
         repaint();
     }
 
-    public void addPoint(int x, int y) {
+    public void addPoint(int x, int y) { //function in model - repaint handled by view
         if (!point.contains(new Point(x,y))) {
             point.add(new Point(x,y));
         } 
         repaint();
     }
 
-    public void addPoint(MouseEvent me) {
+    public void addPoint(MouseEvent me) { //function in model - repaint handled by view
         int x = me.getPoint().x/10-1;
         int y = me.getPoint().y/10-1;
         if ((x >= 0) && (x < d_gameBoardSize.width) && (y >= 0) && (y < d_gameBoardSize.height)) {
@@ -49,15 +49,15 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
         }
     }
 
-    public void removePoint(int x, int y) {
+    public void removePoint(int x, int y) { //function in mode - repaint handled by view
         point.remove(new Point(x,y));
     }
 
-    public void resetBoard() {
+    public void resetBoard() { //function in model
         point.clear();
     }
 
-    public void randomlyFillBoard(int percent) {
+    public void randomlyFillBoard(int percent) { //random board fill - we will need to modify this -- all model
         for (int i=0; i<d_gameBoardSize.width; i++) {
             for (int j=0; j<d_gameBoardSize.height; j++) {
                 if (Math.random()*100 < percent) {
@@ -68,8 +68,8 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics g) { //view function
+        super.paintComponent(g); 
         try {
             for (Point newPoint : point) {
                 // Draw new point
@@ -90,7 +90,7 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
     }
     
     @Override
-    public void run() {
+    public void run() { //model function - would need to move repainting out of it
         boolean[][] gameBoard = new boolean[d_gameBoardSize.width+2][d_gameBoardSize.height+2];
         for (Point current : point) {
             gameBoard[current.x+1][current.y+1] = true;
@@ -130,7 +130,7 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
         } catch (InterruptedException ex) {}
     }
 
-	public static int getBlockSize() {
+	public static int getBlockSize() { // model function
 		return BLOCK_SIZE;
 	}
 }
