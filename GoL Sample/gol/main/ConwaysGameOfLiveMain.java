@@ -1,6 +1,7 @@
 package gol.main;
 
 import gol.main.controller.ConwaysGameOfLifeController;
+import gol.main.model.BoardModel;
 import gol.main.view.ConwaysGameOfLifeOptionMenus;
 import gol.main.view.ConwaysGameOfLifeView;
 
@@ -18,11 +19,18 @@ public class ConwaysGameOfLiveMain {
         // Setup the swing specifics
         //JFrame game = new ConwaysGameOfLife();
 		
+		BoardModel model = new BoardModel(DEFAULT_WINDOW_SIZE.height
+				, DEFAULT_WINDOW_SIZE.width);
+		
 		ConwaysGameOfLifeView view = new ConwaysGameOfLifeView();
         
 		ConwaysGameOfLifeOptionMenus menus = new ConwaysGameOfLifeOptionMenus(view);
         
-        ConwaysGameOfLifeController controller = new ConwaysGameOfLifeController(view.gb_gameBoard, view, menus);
+        ConwaysGameOfLifeController controller = new ConwaysGameOfLifeController(
+        		view.gb_gameBoard, 
+        		view, 
+        		menus,
+        		model);
         
         view.register(controller);
 		

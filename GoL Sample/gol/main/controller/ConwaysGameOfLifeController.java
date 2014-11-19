@@ -1,4 +1,5 @@
 package gol.main.controller;
+import gol.main.model.BoardModel;
 import gol.main.view.ConwaysGameOfLifeGameBoard;
 import gol.main.view.ConwaysGameOfLifeOptionMenus;
 import gol.main.view.ConwaysGameOfLifeView;
@@ -17,18 +18,22 @@ import java.net.URI;
 import javax.swing.JOptionPane;
 
 public class ConwaysGameOfLifeController implements ActionListener, ComponentListener, MouseListener, MouseMotionListener {
-	
+	private BoardModel model;
 	private ConwaysGameOfLifeGameBoard game;
 	private ConwaysGameOfLifeView view;
 	private ConwaysGameOfLifeOptionMenus menus;
 
-	public ConwaysGameOfLifeController(ConwaysGameOfLifeGameBoard game, ConwaysGameOfLifeView view, ConwaysGameOfLifeOptionMenus menus){
+	public ConwaysGameOfLifeController(ConwaysGameOfLifeGameBoard game, 
+			ConwaysGameOfLifeView view, 
+			ConwaysGameOfLifeOptionMenus menus,
+			BoardModel model){
 		game.addComponentListener(this);
         game.addMouseListener(this);
         game.addMouseMotionListener(this);
-		this.game = game;
+        this.game = game;
 		this.view = view;
 		this.menus = menus;
+		this.model = model;
 	}
 	
     @Override
@@ -43,7 +48,7 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
         	menus.showAutoFill();
         	
         } else if (ae.getSource().equals(view.mi_game_reset)) {
-            view.gb_gameBoard.resetBoard();
+            this.model.resetBoard();
             view.gb_gameBoard.repaint();
         } else if (ae.getSource().equals(view.mi_game_play)) {
             setGameBeingPlayed(true);
@@ -78,7 +83,7 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
     public void componentResized(ComponentEvent e) {
         // Setup the game board size with proper boundaries
         game.d_gameBoardSize = new Dimension(game.getWidth()/ConwaysGameOfLifeGameBoard.getBlockSize()-2, game.getHeight()/ConwaysGameOfLifeGameBoard.getBlockSize()-2);
-        game.updateArraySize();
+        this.model.updateArraySize();
     }
     @Override
     public void componentMoved(ComponentEvent e) {}

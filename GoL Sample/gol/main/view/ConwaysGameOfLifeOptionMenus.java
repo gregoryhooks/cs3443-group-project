@@ -2,6 +2,7 @@ package gol.main.view;
 
 import gol.main.controller.ConwaysGameOfLifeMovesController;
 import gol.main.controller.ConwaysGameOfLifePercentController;
+import gol.main.model.BoardModel;
 
 import java.awt.Toolkit;
 
@@ -33,8 +34,12 @@ public class ConwaysGameOfLifeOptionMenus extends JPanel {
         Integer[] secondOptions = {1,2,3,4,5,10,15,20};
         final JComboBox cb_seconds = new JComboBox(secondOptions);
         p_options.add(cb_seconds);
+        // TODO:
+        /* This should probably be set in the main method initially and then retrieved by the controller.*/
         cb_seconds.setSelectedItem(view.gb_gameBoard.i_movesPerSecond);
         //cb_seconds.addActionListener(mController);
+        // TODO:
+        /* You probably don't want to initialize a controller within another controller.*/
         ConwaysGameOfLifeMovesController mController = new ConwaysGameOfLifeMovesController(f_options, cb_seconds, view);
         registerMoves(cb_seconds, mController);
         f_options.setVisible(true);

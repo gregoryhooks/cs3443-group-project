@@ -1,5 +1,6 @@
 package gol.main.controller;
 
+import gol.main.model.BoardModel;
 import gol.main.view.ConwaysGameOfLifeView;
 
 /**
@@ -17,18 +18,24 @@ public class ConwaysGameOfLifePercentController implements ActionListener {
 	private ConwaysGameOfLifeView view;
 	private JComboBox cb_percent;
 	private JFrame f_autoFill;
+	private BoardModel model;
 	
-	public ConwaysGameOfLifePercentController(JFrame f_autoFill, JComboBox cb_percent, ConwaysGameOfLifeView view){
+	public ConwaysGameOfLifePercentController(
+			JFrame f_autoFill, 
+			JComboBox cb_percent, 
+			ConwaysGameOfLifeView view,
+			BoardModel model){
 		this.view = view;
 		this.cb_percent = cb_percent;
 		this.f_autoFill = f_autoFill;
+		this.model = model;
 	}
 	
 	@Override
     public void actionPerformed(ActionEvent e) {
         if (cb_percent.getSelectedIndex() > 0) {
-            view.gb_gameBoard.resetBoard();
-            view.gb_gameBoard.randomlyFillBoard((Integer)cb_percent.getSelectedItem());
+        	this.model.resetBoard();
+        	this.model.randomlyFillBoard((Integer)cb_percent.getSelectedItem());
             f_autoFill.dispose();
         }
     }
