@@ -15,8 +15,12 @@ public class ConwaysGameOfLifeOptionMenus extends JPanel {
 	
 	private ConwaysGameOfLifeView view;
 	
-	public ConwaysGameOfLifeOptionMenus(ConwaysGameOfLifeView view){
+	private BoardModel model;
+	
+	public ConwaysGameOfLifeOptionMenus(ConwaysGameOfLifeView view
+			, BoardModel model){
 		this.view = view;
+		this.model = model;
 	}
 	
 	public void showOptions() {
@@ -36,11 +40,16 @@ public class ConwaysGameOfLifeOptionMenus extends JPanel {
         p_options.add(cb_seconds);
         // TODO:
         /* This should probably be set in the main method initially and then retrieved by the controller.*/
-        cb_seconds.setSelectedItem(view.gb_gameBoard.i_movesPerSecond);
+        //cb_seconds.setSelectedItem(view.gb_gameBoard.i_movesPerSecond);
+        cb_seconds.setSelectedItem(this.model.getMovesPerSecond());
         //cb_seconds.addActionListener(mController);
         // TODO:
         /* You probably don't want to initialize a controller within another controller.*/
-        ConwaysGameOfLifeMovesController mController = new ConwaysGameOfLifeMovesController(f_options, cb_seconds, view);
+        ConwaysGameOfLifeMovesController mController = 
+        		new ConwaysGameOfLifeMovesController(f_options, 
+        				cb_seconds, 
+        				this.view,
+        				this.model);
         registerMoves(cb_seconds, mController);
         f_options.setVisible(true);
 	}
@@ -61,7 +70,12 @@ public class ConwaysGameOfLifeOptionMenus extends JPanel {
         final JComboBox cb_percent = new JComboBox(percentageOptions);
         p_autoFill.add(cb_percent);
         //cb_percent.addActionListener(pController);
-        ConwaysGameOfLifePercentController pController = new ConwaysGameOfLifePercentController(f_autoFill, cb_percent, view);
+        ConwaysGameOfLifePercentController pController = 
+        		new ConwaysGameOfLifePercentController(
+        				f_autoFill, 
+        				cb_percent, 
+        				this.view,
+        				this.model);
         registerPercent(cb_percent, pController);
         f_autoFill.setVisible(true);
 	}

@@ -24,7 +24,8 @@ public class ConwaysGameOfLiveMain {
 		
 		ConwaysGameOfLifeView view = new ConwaysGameOfLifeView();
         
-		ConwaysGameOfLifeOptionMenus menus = new ConwaysGameOfLifeOptionMenus(view);
+		ConwaysGameOfLifeOptionMenus menus = 
+				new ConwaysGameOfLifeOptionMenus(view, model);
         
         ConwaysGameOfLifeController controller = new ConwaysGameOfLifeController(
         		view.gb_gameBoard, 
