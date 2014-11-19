@@ -13,9 +13,10 @@ public class BoardModel {
 	
 	private int gameBoard_Height = 0;
 	
-	private ArrayList<Point> point = new ArrayList<Point>(0);
+	private ArrayList<Point> points;
 	
 	public BoardModel(int height, int width){
+		this.points = new ArrayList<Point>(0);
 		this.gameBoard_Height = height;
 		this.gameBoard_Width = width;
 	}
@@ -46,26 +47,26 @@ public class BoardModel {
 	
 	public void updateArraySize() { // funtion would be in model - add connected function to view for repaint()
         ArrayList<Point> removeList = new ArrayList<Point>(0);
-        for (Point current : point) {
+        for (Point current : points) {
             if ((current.x > this.gameBoard_Height-1) || (current.y > this.gameBoard_Width-1)) {
                 removeList.add(current);
             }
         }
-        point.removeAll(removeList);
+        points.removeAll(removeList);
     }
 	
 	public void addPoint(int x, int y) { //function in model - repaint handled by view
-        if (!point.contains(new Point(x,y))) {
-            point.add(new Point(x,y));
+        if (!points.contains(new Point(x,y))) {
+            points.add(new Point(x,y));
         }         
     }
 	
     public void removePoint(int x, int y) { //function in mode - repaint handled by view
-        point.remove(new Point(x,y));
+        points.remove(new Point(x,y));
     }
 
     public void resetBoard() { //function in model
-        point.clear();
+        points.clear();
     }
 
     public void randomlyFillBoard(int percent) { //random board fill - we will need to modify this -- all model
@@ -82,7 +83,7 @@ public class BoardModel {
     	boolean[][] gameBoard = 
     			new boolean[ this.gameBoard_Width + 2 ]
     					   [ this.gameBoard_Height + 2 ];
-    	for (Point current : point) {
+    	for (Point current : points) {
             gameBoard[current.x+1][current.y+1] = true;
         }
         ArrayList<Point> survivingCells = new ArrayList<Point>(0);
@@ -112,6 +113,10 @@ public class BoardModel {
             }
         }
         resetBoard();
-        point.addAll(survivingCells);
+        points.addAll(survivingCells);
     }
+    
+    public static int getBlockSize() { // model function
+		return BLOCK_SIZE;
+	}
 }

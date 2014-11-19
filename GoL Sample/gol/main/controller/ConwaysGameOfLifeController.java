@@ -19,18 +19,18 @@ import javax.swing.JOptionPane;
 
 public class ConwaysGameOfLifeController implements ActionListener, ComponentListener, MouseListener, MouseMotionListener {
 	private BoardModel model;
-	private ConwaysGameOfLifeGameBoard game;
+	private ConwaysGameOfLifeGameBoard gameBoard;
 	private ConwaysGameOfLifeView view;
 	private ConwaysGameOfLifeOptionMenus menus;
 
-	public ConwaysGameOfLifeController(ConwaysGameOfLifeGameBoard game, 
+	public ConwaysGameOfLifeController(ConwaysGameOfLifeGameBoard gameBoard, 
 			ConwaysGameOfLifeView view, 
 			ConwaysGameOfLifeOptionMenus menus,
 			BoardModel model){
-		game.addComponentListener(this);
-        game.addMouseListener(this);
-        game.addMouseMotionListener(this);
-        this.game = game;
+		gameBoard.addComponentListener(this);
+        gameBoard.addMouseListener(this);
+        gameBoard.addMouseMotionListener(this);
+        this.gameBoard = gameBoard;
 		this.view = view;
 		this.menus = menus;
 		this.model = model;
@@ -49,7 +49,7 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
         	
         } else if (ae.getSource().equals(view.mi_game_reset)) {
             this.model.resetBoard();
-            view.gb_gameBoard.repaint();
+            this.gameBoard.repaint();
         } else if (ae.getSource().equals(view.mi_game_play)) {
             setGameBeingPlayed(true);
         } else if (ae.getSource().equals(view.mi_game_stop)) {
@@ -70,21 +70,26 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
         if (isBeingPlayed) {
             view.mi_game_play.setEnabled(false);
             view.mi_game_stop.setEnabled(true);
-            game.game = new Thread(view.gb_gameBoard);
-            game.game.start();
+            gameBoard.game = new Thread(this.gameBoard);
+            gameBoard.game.start();
         } else {
             view.mi_game_play.setEnabled(true);
             view.mi_game_stop.setEnabled(false);
-            game.game.interrupt();
+            gameBoard.game.interrupt();
         }
     }
     
     @Override
     public void componentResized(ComponentEvent e) {
         // Setup the game board size with proper boundaries
-        game.d_gameBoardSize = new Dimension(game.getWidth()/ConwaysGameOfLifeGameBoard.getBlockSize()-2, game.getHeight()/ConwaysGameOfLifeGameBoard.getBlockSize()-2);
+        gameBoard.d_gameBoardSize = new Dimension(
+        		gameBoard.getWidth() / BoardModel.getBlockSize() - 2, 
+        		gameBoard.getHeight() / BoardModel.getBlockSize() - 2);
+        this.model.setGameBoardHeight(gameBoard.getHeight());
+        this.model.setGameBoardWidth(gameBoard.getWidth());
         this.model.updateArraySize();
     }
+    
     @Override
     public void componentMoved(ComponentEvent e) {}
     @Override
@@ -98,7 +103,7 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
     @Override
     public void mouseReleased(MouseEvent e) {
         // Mouse was released (user clicked)
-        game.addPoint(e);
+        gameBoard.addPoint(e);
     }
     @Override
     public void mouseEntered(MouseEvent e) {}
@@ -109,7 +114,7 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
     @Override
     public void mouseDragged(MouseEvent e) {
         // Mouse is being dragged, user wants multiple selections
-        game.addPoint(e);
+        gameBoard.addPoint(e);
     }
     @Override
     public void mouseMoved(MouseEvent e) {}

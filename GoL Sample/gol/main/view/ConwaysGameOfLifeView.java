@@ -12,7 +12,7 @@ public class ConwaysGameOfLifeView extends JFrame {
     public JMenuItem mi_file_options, mi_file_exit;
     public JMenuItem mi_game_autofill, mi_game_play, mi_game_stop, mi_game_reset;
     public JMenuItem mi_help_about, mi_help_source;
-    public ConwaysGameOfLifeGameBoard gb_gameBoard;
+    //public ConwaysGameOfLifeGameBoard gb_gameBoard;
 	
 	public ConwaysGameOfLifeView() {
         // Setup menu
@@ -52,9 +52,13 @@ public class ConwaysGameOfLifeView extends JFrame {
         m_help.add(mi_help_about);
         m_help.add(mi_help_source);
         // Setup game board
-        gb_gameBoard = new ConwaysGameOfLifeGameBoard();
-        add(gb_gameBoard);
+        //gb_gameBoard = new ConwaysGameOfLifeGameBoard();
+        //add(gb_gameBoard);
     }
+	
+	public void addGameBoard(ConwaysGameOfLifeGameBoard board){
+		add(board);
+	}
 	
 	public void register(ConwaysGameOfLifeController controller) {		
 		mi_file_options.addActionListener(controller);

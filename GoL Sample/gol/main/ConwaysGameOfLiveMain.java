@@ -2,6 +2,7 @@ package gol.main;
 
 import gol.main.controller.ConwaysGameOfLifeController;
 import gol.main.model.BoardModel;
+import gol.main.view.ConwaysGameOfLifeGameBoard;
 import gol.main.view.ConwaysGameOfLifeOptionMenus;
 import gol.main.view.ConwaysGameOfLifeView;
 
@@ -26,12 +27,18 @@ public class ConwaysGameOfLiveMain {
         
 		ConwaysGameOfLifeOptionMenus menus = 
 				new ConwaysGameOfLifeOptionMenus(view, model);
+		
+		ConwaysGameOfLifeGameBoard board = 
+				new ConwaysGameOfLifeGameBoard(view, model);
+		
+		view.addGameBoard(board);
         
-        ConwaysGameOfLifeController controller = new ConwaysGameOfLifeController(
-        		view.gb_gameBoard, 
-        		view, 
-        		menus,
-        		model);
+        ConwaysGameOfLifeController controller = 
+        		new ConwaysGameOfLifeController(
+	        		board, 
+	        		view, 
+	        		menus,
+	        		model);
         
         view.register(controller);
 		
@@ -40,8 +47,8 @@ public class ConwaysGameOfLiveMain {
         //game.setIconImage(new ImageIcon(ConwaysGameOfLife.class.getResource("/images/logo.png")).getImage());
         view.setSize(DEFAULT_WINDOW_SIZE);
         view.setMinimumSize(MINIMUM_WINDOW_SIZE);
-        view.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - view.gb_gameBoard.getWidth())/2, 
-                (Toolkit.getDefaultToolkit().getScreenSize().height - view.gb_gameBoard.getHeight())/2);
+        view.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - board.getWidth())/2, 
+                (Toolkit.getDefaultToolkit().getScreenSize().height - board.getHeight())/2);
         view.setVisible(true);
     }
 }

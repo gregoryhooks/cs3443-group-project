@@ -16,6 +16,8 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
 	
 	private BoardModel model;
 	
+	private ConwaysGameOfLifeView view;
+	
 	private static final int BLOCK_SIZE = 10; //View
 
     public Thread game; //model <- This is a thread and shouldn't exist in the model
@@ -23,14 +25,18 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
     public Dimension d_gameBoardSize = null; //model - but may need to duplicate for View(or add getter)
     private ArrayList<Point> point = new ArrayList<Point>(0); //model
 
-    //public ConwaysGameOfLifeGameBoard(ConwaysGameOfLifeView view) {}
+    public ConwaysGameOfLifeGameBoard(ConwaysGameOfLifeView view, BoardModel model) {
+    	this.view = view;
+    	this.model = model;
+    }
 
     /* This is an event driven function and calls the model function addPoint(int, int). This is
      * a controller method that will feed information to the model.*/
     public void addPoint(MouseEvent me) { //function in model - repaint handled by view
         int x = me.getPoint().x/10-1;
         int y = me.getPoint().y/10-1;
-        if ((x >= 0) && (x < d_gameBoardSize.width) && (y >= 0) && (y < d_gameBoardSize.height)) {
+        if ((x >= 0) && (x < this.model.getGameBoardWidth()) 
+        		&& (y >= 0) && (y < this.model.getGameBoardHeight())) {
             model.addPoint(x,y);
         }
     }
@@ -43,17 +49,29 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
             for (Point newPoint : point) {
                 // Draw new point
                 g.setColor(Color.blue);
-                g.fillRect(getBlockSize() + (getBlockSize()*newPoint.x), getBlockSize() + (getBlockSize()*newPoint.y), getBlockSize(), getBlockSize());
+                g.fillRect(BoardModel.getBlockSize() + (BoardModel.getBlockSize()*newPoint.x), 
+                		BoardModel.getBlockSize() + (BoardModel.getBlockSize()*newPoint.y), 
+                		BoardModel.getBlockSize(), 
+                		BoardModel.getBlockSize());
             }
         } catch (ConcurrentModificationException cme) {}
         // Setup grid
         g.setColor(Color.BLACK);
         if(d_gameBoardSize != null){ //Prevents null exception error at game start
         	for (int i=0; i<=d_gameBoardSize.width; i++) {
-        		g.drawLine(((i*getBlockSize())+getBlockSize()), getBlockSize(), (i*getBlockSize())+getBlockSize(), getBlockSize() + (getBlockSize()*d_gameBoardSize.height));
+        		g.drawLine(
+        				((i * BoardModel.getBlockSize()) + BoardModel.getBlockSize()), 
+        				BoardModel.getBlockSize(), 
+        				(i * BoardModel.getBlockSize()) + BoardModel.getBlockSize(), 
+        				BoardModel.getBlockSize() + (BoardModel.getBlockSize() 
+        						* this.model.getGameBoardHeight()));
         	}
         	for (int i=0; i<=d_gameBoardSize.height; i++) {
-        		g.drawLine(getBlockSize(), ((i*getBlockSize())+getBlockSize()), getBlockSize()*(d_gameBoardSize.width+1), ((i*getBlockSize())+getBlockSize()));
+        		g.drawLine(
+        				BoardModel.getBlockSize(), 
+        				((i*BoardModel.getBlockSize()) + BoardModel.getBlockSize()), 
+        				BoardModel.getBlockSize() * (d_gameBoardSize.width+1), 
+        				((i*BoardModel.getBlockSize()) + BoardModel.getBlockSize()));
         	}
         }
     }
@@ -102,8 +120,4 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
             run();
         } catch (InterruptedException ex) {}
     }
-
-	public static int getBlockSize() { // model function
-		return BLOCK_SIZE;
-	}	
 }
