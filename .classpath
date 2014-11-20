@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="gol-mvc/gol/test/" kind="src" path="GoL Sample"/>
+	<classpathentry excluding="gol-mvc/gol/test/" kind="src" path="game_of_life"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
