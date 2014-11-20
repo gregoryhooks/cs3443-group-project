@@ -15,29 +15,29 @@ import javax.swing.JFrame;
 
 public class PercentController implements ActionListener {
 	
-	private MainView view;
-	private JComboBox cb_percent;
-	private JFrame f_autoFill;
+	private MainView mainView;
+	private JComboBox percentCombo;
+	private JFrame autoFillFrame;
 	private BoardModel model;
 	
 	public PercentController(
-			JFrame f_autoFill, 
-			JComboBox cb_percent, 
+			JFrame autoFillFrame, 
+			JComboBox percentCombo, 
 			MainView view,
 			BoardModel model){
-		this.view = view;
-		this.cb_percent = cb_percent;
-		this.f_autoFill = f_autoFill;
+		this.mainView = view;
+		this.percentCombo = percentCombo;
+		this.autoFillFrame = autoFillFrame;
 		this.model = model;
 	}
 	
 	@Override
     public void actionPerformed(ActionEvent e) {
-        if (cb_percent.getSelectedIndex() > 0) {
+        if (percentCombo.getSelectedIndex() > 0) {
         	this.model.resetBoard();
-        	this.model.randomlyFillBoard((Integer)cb_percent.getSelectedItem());
-        	this.view.updateGameBoard();
-        	f_autoFill.dispose();
+        	this.model.randomlyFillBoard((int)percentCombo.getSelectedItem());
+        	this.mainView.updateGameBoard();
+        	autoFillFrame.dispose();
         }
     }
 }

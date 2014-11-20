@@ -11,7 +11,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-public class ProgramStart {
+public class ConwaysGameOfLife {
 	
     private static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension MINIMUM_WINDOW_SIZE = new Dimension(400, 400);

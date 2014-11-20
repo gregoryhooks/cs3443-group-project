@@ -7,72 +7,81 @@ import javax.swing.*;
 
 public class MainView extends JFrame {
 	
-    public JMenuBar mb_menu;
-    public JMenu m_file, m_game, m_help;
-    public JMenuItem mi_file_options, mi_file_exit;
-    public JMenuItem mi_game_autofill, mi_game_play, mi_game_stop, mi_game_reset;
-    public JMenuItem mi_help_about, mi_help_source;
-    private GameBoardView gb_gameBoard;
+    private JMenuBar menuBar;
+    
+    public JMenu menuFile;
+    public JMenu menuGame;
+    public JMenu menuHelp;
+    
+    public JMenuItem menuFile_Options;
+    public JMenuItem menuFile_Exit;
+    
+    public JMenuItem menuGame_Autofill;
+    public JMenuItem menuGame_Play;
+    public JMenuItem menuGame_Stop;
+    public JMenuItem menuGame_Reset;
+    
+    public JMenuItem menuHelp_About;
+    public JMenuItem menuHelp_Source;
+    
+    private GameBoardView gameBoardView;
 	
 	public MainView() {
         // Setup menus
-        mb_menu = new JMenuBar();
-        setJMenuBar(mb_menu);
-        m_file = new JMenu("File");
-        mb_menu.add(m_file);
-        m_game = new JMenu("Game");
-        mb_menu.add(m_game);
-        m_help = new JMenu("Help");
-        mb_menu.add(m_help);
-        mi_file_options = new JMenuItem("Options");
-        //mi_file_options.addActionListener(this);
-        mi_file_exit = new JMenuItem("Exit");
-        //mi_file_exit.addActionListener(this);
-        m_file.add(mi_file_options);
-        m_file.add(new JSeparator());
-        m_file.add(mi_file_exit);
-        mi_game_autofill = new JMenuItem("Autofill");
-        //mi_game_autofill.addActionListener(this);
-        mi_game_play = new JMenuItem("Play");
-        //mi_game_play.addActionListener(this);
-        mi_game_stop = new JMenuItem("Stop");
-        mi_game_stop.setEnabled(false);
-        //mi_game_stop.addActionListener(this);
-        mi_game_reset = new JMenuItem("Reset");
-        //mi_game_reset.addActionListener(this);
-        m_game.add(mi_game_autofill);
-        m_game.add(new JSeparator());
-        m_game.add(mi_game_play);
-        m_game.add(mi_game_stop);
-        m_game.add(mi_game_reset);
-        mi_help_about = new JMenuItem("About");
-        //mi_help_about.addActionListener(this);
-        mi_help_source = new JMenuItem("Source");
-        //mi_help_source.addActionListener(this);
-        m_help.add(mi_help_about);
-        m_help.add(mi_help_source);
-        // Setup game board
-        //gb_gameBoard = new ConwaysGameOfLifeGameBoard();
-        //add(gb_gameBoard);
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        
+        // Create and add menus to menuBar.
+        menuFile = new JMenu("File");
+        menuGame = new JMenu("Game");
+        menuHelp = new JMenu("Help");
+        menuBar.add(menuFile);
+        menuBar.add(menuGame);
+        menuBar.add(menuHelp);
+        
+        // Create and add menu items to menuFile.
+        menuFile_Options = new JMenuItem("Options");
+        menuFile_Exit = new JMenuItem("Exit");
+        menuFile.add(menuFile_Options);
+        menuFile.add(new JSeparator());
+        menuFile.add(menuFile_Exit);
+        
+        // Create and add menu items to menuGame.
+        menuGame_Autofill = new JMenuItem("Autofill");
+        menuGame_Play = new JMenuItem("Play");
+        menuGame_Stop = new JMenuItem("Stop");
+        menuGame_Stop.setEnabled(false);
+        menuGame_Reset = new JMenuItem("Reset");
+        menuGame.add(menuGame_Autofill);
+        menuGame.add(new JSeparator());
+        menuGame.add(menuGame_Play);
+        menuGame.add(menuGame_Stop);
+        menuGame.add(menuGame_Reset);
+        
+        // Create and add menu items to menuHelp.
+        menuHelp_About = new JMenuItem("About");
+        menuHelp_Source = new JMenuItem("Source");
+        menuHelp.add(menuHelp_About);
+        menuHelp.add(menuHelp_Source);
     }
 	
 	public void addGameBoard(GameBoardView board){
-		this.gb_gameBoard = board;
+		this.gameBoardView = board;
 		add(board);
 	}
 	
 	public void updateGameBoard(){
-		this.gb_gameBoard.repaint();
+		this.gameBoardView.repaint();
 	}
 	
 	public void register(PrimaryController controller) {		
-		mi_file_options.addActionListener(controller);
-		mi_file_exit.addActionListener(controller);
-		mi_game_autofill.addActionListener(controller);
-		mi_game_play.addActionListener(controller);
-		mi_game_stop.addActionListener(controller);
-		mi_game_reset.addActionListener(controller);
-		mi_help_about.addActionListener(controller);
-		mi_help_source.addActionListener(controller);
+		menuFile_Options.addActionListener(controller);
+		menuFile_Exit.addActionListener(controller);
+		menuGame_Autofill.addActionListener(controller);
+		menuGame_Play.addActionListener(controller);
+		menuGame_Stop.addActionListener(controller);
+		menuGame_Reset.addActionListener(controller);
+		menuHelp_About.addActionListener(controller);
+		menuHelp_Source.addActionListener(controller);
 	}
 }
