@@ -7,11 +7,8 @@ import gol.main.view.ConwaysGameOfLifeView;
  * This controller is used for the auto fill window
  */
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;

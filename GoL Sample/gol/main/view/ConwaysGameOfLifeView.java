@@ -15,7 +15,7 @@ public class ConwaysGameOfLifeView extends JFrame {
     private ConwaysGameOfLifeGameBoard gb_gameBoard;
 	
 	public ConwaysGameOfLifeView() {
-        // Setup menu
+        // Setup menus
         mb_menu = new JMenuBar();
         setJMenuBar(mb_menu);
         m_file = new JMenu("File");
