@@ -29,18 +29,6 @@ public class ConwaysGameOfLifeGameBoard extends JPanel {
     	this.model = model;
     }
 
-    /* This is an event driven function and calls the model function addPoint(int, int). This is
-     * a controller method that will feed information to the model.*/
-    public void addPoint(MouseEvent me) { //function in model - repaint handled by view
-        int x = me.getPoint().x/10-1;
-        int y = me.getPoint().y/10-1;
-        if ((x >= 0) && (x < this.model.getGameBoardWidth()) 
-        		&& (y >= 0) && (y < this.model.getGameBoardHeight())) {
-            this.model.addPoint(x,y);
-        }
-    }
-
-
     @Override
     public void paintComponent(Graphics g) { //view function
         super.paintComponent(g); 

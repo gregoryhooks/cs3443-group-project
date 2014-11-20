@@ -105,7 +105,7 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
     @Override
     public void mouseReleased(MouseEvent e) {
         // Mouse was released (user clicked)
-        gameBoard.addPoint(e);
+        this.addPoint(e);
     }
     @Override
     public void mouseEntered(MouseEvent e) {}
@@ -116,7 +116,7 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
     @Override
     public void mouseDragged(MouseEvent e) {
         // Mouse is being dragged, user wants multiple selections
-        gameBoard.addPoint(e);
+        this.addPoint(e);
     }
     @Override
     public void mouseMoved(MouseEvent e) {}
@@ -134,4 +134,16 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
 			}
 		}
 	}
+	
+    /* This is an event driven function and calls the model function addPoint(int, int). This is
+     * a controller method that will feed information to the model.*/
+	public void addPoint(MouseEvent me) { //function in model - repaint handled by view
+        int x = me.getPoint().x/BoardModel.getBlockSize()-1;
+        int y = me.getPoint().y/BoardModel.getBlockSize()-1;
+        if ((x >= 0) && (x < model.getGameBoardWidth()) 
+        		&& (y >= 0) && (y < model.getGameBoardHeight())) {
+            model.addPoint(x,y);
+            view.updateGameBoard();
+        }
+    }
 }
