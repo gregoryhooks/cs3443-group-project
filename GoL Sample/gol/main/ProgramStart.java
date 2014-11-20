@@ -1,17 +1,17 @@
 package gol.main;
 
-import gol.main.controller.ConwaysGameOfLifeController;
+import gol.main.controller.PrimaryController;
 import gol.main.model.BoardModel;
-import gol.main.view.ConwaysGameOfLifeGameBoard;
-import gol.main.view.ConwaysGameOfLifeOptionMenus;
-import gol.main.view.ConwaysGameOfLifeView;
+import gol.main.view.GameBoardView;
+import gol.main.view.OptionMenus;
+import gol.main.view.MainView;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-public class ConwaysGameOfLiveMain {
+public class ProgramStart {
 	
     private static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension MINIMUM_WINDOW_SIZE = new Dimension(400, 400);
@@ -23,18 +23,18 @@ public class ConwaysGameOfLiveMain {
 		BoardModel model = new BoardModel(DEFAULT_WINDOW_SIZE.height
 				, DEFAULT_WINDOW_SIZE.width);
 		
-		ConwaysGameOfLifeView view = new ConwaysGameOfLifeView();
+		MainView view = new MainView();
         
-		ConwaysGameOfLifeOptionMenus menus = 
-				new ConwaysGameOfLifeOptionMenus(view, model);
+		OptionMenus menus = 
+				new OptionMenus(view, model);
 		
-		ConwaysGameOfLifeGameBoard board = 
-				new ConwaysGameOfLifeGameBoard(view, model);
+		GameBoardView board = 
+				new GameBoardView(view, model);
 		
 		view.addGameBoard(board);
         
-        ConwaysGameOfLifeController controller = 
-        		new ConwaysGameOfLifeController(
+        PrimaryController controller = 
+        		new PrimaryController(
 	        		board, 
 	        		view, 
 	        		menus,

@@ -1,7 +1,7 @@
 package gol.main.view;
 
-import gol.main.controller.ConwaysGameOfLifeMovesController;
-import gol.main.controller.ConwaysGameOfLifePercentController;
+import gol.main.controller.MovesController;
+import gol.main.controller.PercentController;
 import gol.main.model.BoardModel;
 
 import java.awt.Toolkit;
@@ -11,13 +11,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ConwaysGameOfLifeOptionMenus extends JPanel {
+public class OptionMenus extends JPanel {
 	
-	private ConwaysGameOfLifeView view;
+	private MainView view;
 	
 	private BoardModel model;
 	
-	public ConwaysGameOfLifeOptionMenus(ConwaysGameOfLifeView view
+	public OptionMenus(MainView view
 			, BoardModel model){
 		this.view = view;
 		this.model = model;
@@ -45,8 +45,8 @@ public class ConwaysGameOfLifeOptionMenus extends JPanel {
         //cb_seconds.addActionListener(mController);
         // TODO:
         /* You probably don't want to initialize a controller within another controller.*/
-        ConwaysGameOfLifeMovesController mController = 
-        		new ConwaysGameOfLifeMovesController(f_options, 
+        MovesController mController = 
+        		new MovesController(f_options, 
         				cb_seconds, 
         				this.view,
         				this.model);
@@ -70,8 +70,8 @@ public class ConwaysGameOfLifeOptionMenus extends JPanel {
         final JComboBox cb_percent = new JComboBox(percentageOptions);
         p_autoFill.add(cb_percent);
         //cb_percent.addActionListener(pController);
-        ConwaysGameOfLifePercentController pController = 
-        		new ConwaysGameOfLifePercentController(
+        PercentController pController = 
+        		new PercentController(
         				f_autoFill, 
         				cb_percent, 
         				this.view,
@@ -80,11 +80,11 @@ public class ConwaysGameOfLifeOptionMenus extends JPanel {
         f_autoFill.setVisible(true);
 	}
 	
-	public void registerPercent(JComboBox cb_percent, ConwaysGameOfLifePercentController controller) {
+	public void registerPercent(JComboBox cb_percent, PercentController controller) {
 		cb_percent.addActionListener(controller);
 	}
 	
-	public void registerMoves(JComboBox cb_seconds, ConwaysGameOfLifeMovesController controller) {
+	public void registerMoves(JComboBox cb_seconds, MovesController controller) {
 		cb_seconds.addActionListener(controller);
 	}
 }

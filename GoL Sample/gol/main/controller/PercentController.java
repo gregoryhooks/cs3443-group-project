@@ -1,7 +1,7 @@
 package gol.main.controller;
 
 import gol.main.model.BoardModel;
-import gol.main.view.ConwaysGameOfLifeView;
+import gol.main.view.MainView;
 
 /**
  * This controller is used for the auto fill window
@@ -13,17 +13,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
-public class ConwaysGameOfLifePercentController implements ActionListener {
+public class PercentController implements ActionListener {
 	
-	private ConwaysGameOfLifeView view;
+	private MainView view;
 	private JComboBox cb_percent;
 	private JFrame f_autoFill;
 	private BoardModel model;
 	
-	public ConwaysGameOfLifePercentController(
+	public PercentController(
 			JFrame f_autoFill, 
 			JComboBox cb_percent, 
-			ConwaysGameOfLifeView view,
+			MainView view,
 			BoardModel model){
 		this.view = view;
 		this.cb_percent = cb_percent;

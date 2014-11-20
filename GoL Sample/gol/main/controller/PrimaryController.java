@@ -1,8 +1,8 @@
 package gol.main.controller;
 import gol.main.model.BoardModel;
-import gol.main.view.ConwaysGameOfLifeGameBoard;
-import gol.main.view.ConwaysGameOfLifeOptionMenus;
-import gol.main.view.ConwaysGameOfLifeView;
+import gol.main.view.GameBoardView;
+import gol.main.view.OptionMenus;
+import gol.main.view.MainView;
 
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -17,17 +17,17 @@ import java.net.URI;
 
 import javax.swing.JOptionPane;
 
-public class ConwaysGameOfLifeController implements ActionListener, ComponentListener, MouseListener, MouseMotionListener, Runnable {
+public class PrimaryController implements ActionListener, ComponentListener, MouseListener, MouseMotionListener, Runnable {
 	private BoardModel model;
-	private ConwaysGameOfLifeGameBoard gameBoard;
-	private ConwaysGameOfLifeView view;
-	private ConwaysGameOfLifeOptionMenus menus;
+	private GameBoardView gameBoard;
+	private MainView view;
+	private OptionMenus menus;
 	
 	private Thread gameThread;
 
-	public ConwaysGameOfLifeController(ConwaysGameOfLifeGameBoard gameBoard, 
-			ConwaysGameOfLifeView view, 
-			ConwaysGameOfLifeOptionMenus menus,
+	public PrimaryController(GameBoardView gameBoard, 
+			MainView view, 
+			OptionMenus menus,
 			BoardModel model){
 		gameBoard.addComponentListener(this);
         gameBoard.addMouseListener(this);

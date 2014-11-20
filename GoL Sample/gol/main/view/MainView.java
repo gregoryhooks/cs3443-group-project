@@ -1,20 +1,20 @@
 package gol.main.view;
 
-import gol.main.controller.ConwaysGameOfLifeController;
-import gol.main.view.ConwaysGameOfLifeGameBoard;
+import gol.main.controller.PrimaryController;
+import gol.main.view.GameBoardView;
 
 import javax.swing.*;
 
-public class ConwaysGameOfLifeView extends JFrame {
+public class MainView extends JFrame {
 	
     public JMenuBar mb_menu;
     public JMenu m_file, m_game, m_help;
     public JMenuItem mi_file_options, mi_file_exit;
     public JMenuItem mi_game_autofill, mi_game_play, mi_game_stop, mi_game_reset;
     public JMenuItem mi_help_about, mi_help_source;
-    private ConwaysGameOfLifeGameBoard gb_gameBoard;
+    private GameBoardView gb_gameBoard;
 	
-	public ConwaysGameOfLifeView() {
+	public MainView() {
         // Setup menus
         mb_menu = new JMenuBar();
         setJMenuBar(mb_menu);
@@ -56,7 +56,7 @@ public class ConwaysGameOfLifeView extends JFrame {
         //add(gb_gameBoard);
     }
 	
-	public void addGameBoard(ConwaysGameOfLifeGameBoard board){
+	public void addGameBoard(GameBoardView board){
 		this.gb_gameBoard = board;
 		add(board);
 	}
@@ -65,7 +65,7 @@ public class ConwaysGameOfLifeView extends JFrame {
 		this.gb_gameBoard.repaint();
 	}
 	
-	public void register(ConwaysGameOfLifeController controller) {		
+	public void register(PrimaryController controller) {		
 		mi_file_options.addActionListener(controller);
 		mi_file_exit.addActionListener(controller);
 		mi_game_autofill.addActionListener(controller);

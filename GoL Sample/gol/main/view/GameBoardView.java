@@ -11,11 +11,11 @@ import java.util.ConcurrentModificationException;
 
 import javax.swing.JPanel;
 
-public class ConwaysGameOfLifeGameBoard extends JPanel {
+public class GameBoardView extends JPanel {
 	
 	private BoardModel model;
 	
-	private ConwaysGameOfLifeView view;
+	private MainView view;
 	
 	//private static final int BLOCK_SIZE = 10; //View
 
@@ -24,7 +24,7 @@ public class ConwaysGameOfLifeGameBoard extends JPanel {
     public Dimension d_gameBoardSize = null; //model - but may need to duplicate for View(or add getter)
 //    private ArrayList<Point> point = new ArrayList<Point>(0); //model
 
-    public ConwaysGameOfLifeGameBoard(ConwaysGameOfLifeView view, BoardModel model) {
+    public GameBoardView(MainView view, BoardModel model) {
     	this.view = view;
     	this.model = model;
     }
