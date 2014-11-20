@@ -7,8 +7,11 @@ import gol.main.view.ConwaysGameOfLifeView;
  * This controller is used for the auto fill window
  */
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -36,7 +39,8 @@ public class ConwaysGameOfLifePercentController implements ActionListener {
         if (cb_percent.getSelectedIndex() > 0) {
         	this.model.resetBoard();
         	this.model.randomlyFillBoard((Integer)cb_percent.getSelectedItem());
-            f_autoFill.dispose();
+        	this.view.updateGameBoard();
+        	f_autoFill.dispose();
         }
     }
 }

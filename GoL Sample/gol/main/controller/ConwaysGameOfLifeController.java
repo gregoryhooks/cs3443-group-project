@@ -17,11 +17,13 @@ import java.net.URI;
 
 import javax.swing.JOptionPane;
 
-public class ConwaysGameOfLifeController implements ActionListener, ComponentListener, MouseListener, MouseMotionListener {
+public class ConwaysGameOfLifeController implements ActionListener, ComponentListener, MouseListener, MouseMotionListener, Runnable {
 	private BoardModel model;
 	private ConwaysGameOfLifeGameBoard gameBoard;
 	private ConwaysGameOfLifeView view;
 	private ConwaysGameOfLifeOptionMenus menus;
+	
+	private Thread gameThread;
 
 	public ConwaysGameOfLifeController(ConwaysGameOfLifeGameBoard gameBoard, 
 			ConwaysGameOfLifeView view, 
@@ -70,12 +72,12 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
         if (isBeingPlayed) {
             view.mi_game_play.setEnabled(false);
             view.mi_game_stop.setEnabled(true);
-            gameBoard.game = new Thread(this.gameBoard);
-            gameBoard.game.start();
+            this.gameThread = new Thread(this);
+            this.gameThread.start();
         } else {
             view.mi_game_play.setEnabled(true);
             view.mi_game_stop.setEnabled(false);
-            gameBoard.game.interrupt();
+            this.gameThread.interrupt();
         }
     }
     
@@ -118,4 +120,18 @@ public class ConwaysGameOfLifeController implements ActionListener, ComponentLis
     }
     @Override
     public void mouseMoved(MouseEvent e) {}
+
+	@Override
+	public void run() {
+		while(true){
+			this.model.updateModel();
+			this.gameBoard.repaint();
+			try {
+				Thread.sleep(1000/this.model.getMovesPerSecond());
+				
+			} catch( InterruptedException iex){
+				break;
+			}
+		}
+	}
 }

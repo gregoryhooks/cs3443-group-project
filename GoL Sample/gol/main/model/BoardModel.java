@@ -2,6 +2,7 @@ package gol.main.model;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BoardModel {
 	
@@ -45,35 +46,44 @@ public class BoardModel {
 		return this.gameBoard_Width;
 	}
 	
-	public void updateArraySize() { // funtion would be in model - add connected function to view for repaint()
+	public void updateArraySize() { 
         ArrayList<Point> removeList = new ArrayList<Point>(0);
         for (Point current : points) {
-            if ((current.x > this.gameBoard_Height-1) || (current.y > this.gameBoard_Width-1)) {
+            if ((current.x > this.gameBoard_Width-1) 
+            		|| (current.y > this.gameBoard_Height-1)) {
                 removeList.add(current);
             }
         }
         points.removeAll(removeList);
     }
 	
-	public void addPoint(int x, int y) { //function in model - repaint handled by view
-        if (!points.contains(new Point(x,y))) {
-            points.add(new Point(x,y));
+	public void addPoint(int x, int y) {
+		Point temp = new Point(x, y);
+        if (!points.contains(temp)) {
+            points.add(temp);
         }         
     }
 	
-    public void removePoint(int x, int y) { //function in mode - repaint handled by view
+    public void removePoint(int x, int y) { 
         points.remove(new Point(x,y));
     }
+    
+    public ArrayList<Point> getPoints(){
+    	return this.points;
+    }
 
-    public void resetBoard() { //function in model
+    public void resetBoard() { 
         points.clear();
     }
 
-    public void randomlyFillBoard(int percent) { //random board fill - we will need to modify this -- all model
+    public void randomlyFillBoard(int percent) { 
+    	Random test = new java.util.Random();
         for (int i=0; i < this.gameBoard_Width; i++) {
-            for (int j=0; j < this.gameBoard_Width; j++) {
-                if (Math.random()*100 < percent) {
-                    addPoint(i,j);
+            for (int j=0; j < this.gameBoard_Height; j++) {
+                if (test.nextInt(101) < percent) {
+                	// this method is used when 'points' has been cleared,
+                	// so assume adding to empty list to save performance.
+                    points.add(new Point(i, j));
                 }
             }
         }
@@ -84,7 +94,7 @@ public class BoardModel {
     			new boolean[ this.gameBoard_Width + 2 ]
     					   [ this.gameBoard_Height + 2 ];
     	for (Point current : points) {
-            gameBoard[current.x+1][current.y+1] = true;
+    		gameBoard[(current.x+1)][(current.y+1)] = true;
         }
         ArrayList<Point> survivingCells = new ArrayList<Point>(0);
         // Iterate through the array, follow game of life rules

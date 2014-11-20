@@ -12,18 +12,18 @@ import java.util.ConcurrentModificationException;
 
 import javax.swing.JPanel;
 
-public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
+public class ConwaysGameOfLifeGameBoard extends JPanel {
 	
 	private BoardModel model;
 	
 	private ConwaysGameOfLifeView view;
 	
-	private static final int BLOCK_SIZE = 10; //View
+	//private static final int BLOCK_SIZE = 10; //View
 
     public Thread game; //model <- This is a thread and shouldn't exist in the model
 	
     public Dimension d_gameBoardSize = null; //model - but may need to duplicate for View(or add getter)
-    private ArrayList<Point> point = new ArrayList<Point>(0); //model
+//    private ArrayList<Point> point = new ArrayList<Point>(0); //model
 
     public ConwaysGameOfLifeGameBoard(ConwaysGameOfLifeView view, BoardModel model) {
     	this.view = view;
@@ -37,7 +37,7 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
         int y = me.getPoint().y/10-1;
         if ((x >= 0) && (x < this.model.getGameBoardWidth()) 
         		&& (y >= 0) && (y < this.model.getGameBoardHeight())) {
-            model.addPoint(x,y);
+            this.model.addPoint(x,y);
         }
     }
 
@@ -46,11 +46,14 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
     public void paintComponent(Graphics g) { //view function
         super.paintComponent(g); 
         try {
-            for (Point newPoint : point) {
+            for (Point newPoint : this.model.getPoints()) {
                 // Draw new point
                 g.setColor(Color.blue);
-                g.fillRect(BoardModel.getBlockSize() + (BoardModel.getBlockSize()*newPoint.x), 
-                		BoardModel.getBlockSize() + (BoardModel.getBlockSize()*newPoint.y), 
+                g.fillRect(
+                		BoardModel.getBlockSize() 
+                			+ (BoardModel.getBlockSize() * newPoint.x), 
+                		BoardModel.getBlockSize() 
+                			+ (BoardModel.getBlockSize() * newPoint.y), 
                 		BoardModel.getBlockSize(), 
                 		BoardModel.getBlockSize());
             }
@@ -60,23 +63,29 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
         if(d_gameBoardSize != null){ //Prevents null exception error at game start
         	for (int i=0; i<=d_gameBoardSize.width; i++) {
         		g.drawLine(
-        				((i * BoardModel.getBlockSize()) + BoardModel.getBlockSize()), 
+        				((i * BoardModel.getBlockSize()) 
+        					+ BoardModel.getBlockSize()), 
         				BoardModel.getBlockSize(), 
-        				(i * BoardModel.getBlockSize()) + BoardModel.getBlockSize(), 
-        				BoardModel.getBlockSize() + (BoardModel.getBlockSize() 
-        						* this.model.getGameBoardHeight()));
+        				(i * BoardModel.getBlockSize()) 
+        					+ BoardModel.getBlockSize(), 
+        				BoardModel.getBlockSize() 
+        					+ (BoardModel.getBlockSize() 
+        					* this.model.getGameBoardHeight()));
         	}
         	for (int i=0; i<=d_gameBoardSize.height; i++) {
         		g.drawLine(
         				BoardModel.getBlockSize(), 
-        				((i*BoardModel.getBlockSize()) + BoardModel.getBlockSize()), 
-        				BoardModel.getBlockSize() * (d_gameBoardSize.width+1), 
-        				((i*BoardModel.getBlockSize()) + BoardModel.getBlockSize()));
+        				((i * BoardModel.getBlockSize()) 
+        					+ BoardModel.getBlockSize()), 
+        				BoardModel.getBlockSize() 
+        					* (d_gameBoardSize.width+1), 
+        				((i * BoardModel.getBlockSize()) 
+        					+ BoardModel.getBlockSize()));
         	}
         }
     }
     
-    @Override
+    /*@Override
     public void run() { //model function - would need to move repainting out of it
     	/* This is an inherited method from Runnable. The model should not control the
     	 * time between 'ticks' in the game, just recreate and edit what should be displayed
@@ -114,10 +123,14 @@ public class ConwaysGameOfLifeGameBoard extends JPanel implements Runnable {
         }
         resetBoard();
         point.addAll(survivingCells);*/
-        repaint();
-        try {
+        //repaint();
+        /*try {
             Thread.sleep(1000/model.getMovesPerSecond());
             run();
-        } catch (InterruptedException ex) {}
+        } catch (InterruptedException ex) {}*/
+    //}
+    
+    public void updateGameBoard(){
+    	repaint();
     }
 }
