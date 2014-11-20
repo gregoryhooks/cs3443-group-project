@@ -13,42 +13,45 @@ import javax.swing.JFrame;
 
 public class ConwaysGameOfLife {
 	
-    private static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(800, 600);
-    private static final Dimension MINIMUM_WINDOW_SIZE = new Dimension(400, 400);
+    private static final Dimension DEFAULT_WINDOW_SIZE = 
+    		new Dimension(800, 600);
+    private static final Dimension MINIMUM_WINDOW_SIZE = 
+    		new Dimension(400, 400);
 	
 	public static void main(String[] args) {
-        // Setup the swing specifics
-        //JFrame game = new ConwaysGameOfLife();
+		BoardModel boardModel = 
+				new BoardModel
+				(DEFAULT_WINDOW_SIZE.height,
+				DEFAULT_WINDOW_SIZE.width);
 		
-		BoardModel model = new BoardModel(DEFAULT_WINDOW_SIZE.height
-				, DEFAULT_WINDOW_SIZE.width);
-		
-		MainView view = new MainView();
+		MainView mainView = new MainView();
         
-		OptionMenus menus = 
-				new OptionMenus(view, model);
+		OptionMenus optionMenus = 
+				new OptionMenus(mainView, boardModel);
 		
-		GameBoardView board = 
-				new GameBoardView(view, model);
+		GameBoardView gameBoardView = 
+				new GameBoardView(mainView, boardModel);
 		
-		view.addGameBoard(board);
+		mainView.addGameBoard(gameBoardView);
         
         PrimaryController controller = 
         		new PrimaryController(
-	        		board, 
-	        		view, 
-	        		menus,
-	        		model);
+	        		gameBoardView, 
+	        		mainView, 
+	        		optionMenus,
+	        		boardModel);
         
-        view.register(controller);
+        mainView.register(controller);
 		
-        view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        view.setTitle("Conway's Game of Life");
-        //game.setIconImage(new ImageIcon(ConwaysGameOfLife.class.getResource("/images/logo.png")).getImage());
-        view.setSize(DEFAULT_WINDOW_SIZE);
-        view.setMinimumSize(MINIMUM_WINDOW_SIZE);
-        view.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - board.getWidth())/2, 
-                (Toolkit.getDefaultToolkit().getScreenSize().height - board.getHeight())/2);
-        view.setVisible(true);
+        mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainView.setTitle("Conway's Game of Life");
+        mainView.setSize(DEFAULT_WINDOW_SIZE);
+        mainView.setMinimumSize(MINIMUM_WINDOW_SIZE);
+        mainView.setLocation(
+        	(Toolkit.getDefaultToolkit().getScreenSize().width 
+        			- gameBoardView.getWidth())/2, 
+            (Toolkit.getDefaultToolkit().getScreenSize().height 
+            		- gameBoardView.getHeight())/2);
+        mainView.setVisible(true);
     }
 }

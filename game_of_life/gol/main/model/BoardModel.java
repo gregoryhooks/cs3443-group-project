@@ -8,7 +8,7 @@ public class BoardModel {
 	
 	private static final int BLOCK_SIZE = 10;
 	
-	private int i_movesPerSecond = 3;
+	private int movesPerSecond = 3;
 	
 	private int gameBoard_Width = 0;
 	
@@ -23,11 +23,11 @@ public class BoardModel {
 	}
 	
 	public void setMovesPerSecond(int movesPerSec){
-		this.i_movesPerSecond = movesPerSec;
+		this.movesPerSecond = movesPerSec;
 	}
 	
 	public int getMovesPerSecond(){
-		return this.i_movesPerSecond;
+		return this.movesPerSecond;
 	}
 	
 	public void setGameBoardHeight(int height){
