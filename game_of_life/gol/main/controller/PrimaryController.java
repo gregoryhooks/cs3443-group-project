@@ -132,7 +132,6 @@ public class PrimaryController implements ActionListener, ComponentListener, Mou
 			this.gameBoardView.repaint();
 			try {
 				Thread.sleep(1000/this.boardModel.getMovesPerSecond());
-				
 			} catch( InterruptedException iex){
 				break;
 			}

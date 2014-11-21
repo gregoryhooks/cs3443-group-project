@@ -15,8 +15,6 @@ public class GameBoardView extends JPanel {
 	private BoardModel model;
 	
 	private MainView view;
-	
-    public Dimension gameBoardSize = null;
 
     public GameBoardView(MainView view, BoardModel model) {
     	this.view = view;
