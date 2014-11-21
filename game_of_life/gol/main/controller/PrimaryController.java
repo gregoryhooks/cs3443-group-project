@@ -101,16 +101,16 @@ public class PrimaryController implements ActionListener, ComponentListener, Mou
     public void componentHidden(ComponentEvent e) {}
     
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        // Mouse was clicked
+        this.addPointClick(e);
+    }
     
     @Override
     public void mousePressed(MouseEvent e) {}
     
     @Override
-    public void mouseReleased(MouseEvent e) {
-        // Mouse was released (user clicked)
-        this.addPoint(e);
-    }
+    public void mouseReleased(MouseEvent e) {}
     
     @Override
     public void mouseEntered(MouseEvent e) {}
@@ -121,7 +121,7 @@ public class PrimaryController implements ActionListener, ComponentListener, Mou
     @Override
     public void mouseDragged(MouseEvent e) {
         // Mouse is being dragged, user wants multiple selections
-        this.addPoint(e);
+        this.addPointDrag(e);
     }
     @Override
     public void mouseMoved(MouseEvent e) {}
@@ -140,12 +140,22 @@ public class PrimaryController implements ActionListener, ComponentListener, Mou
 		}
 	}
 	
-    public void addPoint(MouseEvent me) { 
+    public void addPointClick(MouseEvent me) { 
         int x = me.getPoint().x/BoardModel.getBlockSize()-1;
         int y = me.getPoint().y/BoardModel.getBlockSize()-1;
         if ((x >= 0) && (x < boardModel.getGameBoardWidth()) 
         		&& (y >= 0) && (y < boardModel.getGameBoardHeight())) {
-            boardModel.addPoint(x,y);
+            boardModel.addPointClick(x,y);
+            mainView.updateGameBoard();
+        }
+    }
+    
+    public void addPointDrag(MouseEvent me) { 
+        int x = me.getPoint().x/BoardModel.getBlockSize()-1;
+        int y = me.getPoint().y/BoardModel.getBlockSize()-1;
+        if ((x >= 0) && (x < boardModel.getGameBoardWidth()) 
+        		&& (y >= 0) && (y < boardModel.getGameBoardHeight())) {
+            boardModel.addPointDrag(x,y);
             mainView.updateGameBoard();
         }
     }

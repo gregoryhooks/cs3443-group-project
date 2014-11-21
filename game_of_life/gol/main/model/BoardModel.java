@@ -50,7 +50,27 @@ public class BoardModel {
         points.removeAll(removeList);
     }
 	
+	 
+	// Saved original addPoint code for Brendan, currently unused.
+
 	public void addPoint(int x, int y) {
+		Point temp = new Point(x, y);
+        if (!points.contains(temp)) {
+            points.add(temp);
+        }         
+    }
+    
+	
+	public void addPointClick(int x, int y) {
+		Point temp = new Point(x, y);
+        if (!points.contains(temp)) {
+            points.add(temp);
+        }  else {
+        	points.remove(temp);
+        }
+    }
+	
+	public void addPointDrag(int x, int y) {
 		Point temp = new Point(x, y);
         if (!points.contains(temp)) {
             points.add(temp);
