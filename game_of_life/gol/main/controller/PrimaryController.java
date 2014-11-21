@@ -83,11 +83,10 @@ public class PrimaryController implements ActionListener, ComponentListener, Mou
     @Override
     public void componentResized(ComponentEvent e) {
         // Setup the game board size with proper boundaries
-        gameBoardView.gameBoardSize = new Dimension(
-        		gameBoardView.getWidth() / BoardModel.getBlockSize() - 2, 
+    	this.boardModel.setGameBoardHeight(
         		gameBoardView.getHeight() / BoardModel.getBlockSize() - 2);
-        this.boardModel.setGameBoardHeight(gameBoardView.getHeight());
-        this.boardModel.setGameBoardWidth(gameBoardView.getWidth());
+        this.boardModel.setGameBoardWidth(
+        		gameBoardView.getWidth() / BoardModel.getBlockSize() - 2);
         this.boardModel.updateArraySize();
     }
     
